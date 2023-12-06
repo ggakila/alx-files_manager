@@ -1,5 +1,4 @@
 import redis from "redis";
-import { promisify } from "util";
 
 const HOST = process.env.REDIS_HOST || "localhost";
 const PORT = process.env.REDIS_PORT || 5000;
@@ -18,21 +17,20 @@ class RedisClient {
 	}
 
 	async get(key) {
-		const asyncGet = promisify(this.client.get).bind(this.client);
+		const asyncGet = await(this.client.get).bind(this.client);
 		return asyncGet(key);
 	}
 
 	async set(key, value, durationInSeconds) {
-		const asyncSet = promisify(this.client.set).bind(this.client);
+		const asyncSet = await(this.client.set).bind(this.client);
 		return asyncSet(key, value, "EX", durationInSeconds);
 	}
 
 	async del(key) {
-		const asyncDel = promisify(this.client.del).bind(this.client);
+		const asyncDel = await(this.client.del).bind(this.client);
 		return asyncDel(key);
 	}
 }
 
-// Create and export an instance of RedisClient
 const redisClient = new RedisClient();
-module.exports = redisClient;
+export default redisClient;
