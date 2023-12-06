@@ -15,7 +15,7 @@ class DBClient {
 		
 		this.client.connect((err) => {
 			if (!err) {
-				this.db = this.client.db(DB_DATABASE);
+				this.db = this.client.db(`${DB_DATABASE}`);
 				this.users = this.db.collection("users");
 				this.files = this.db.collection("files");
 			} else {
