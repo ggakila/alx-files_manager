@@ -2,13 +2,12 @@ import redis from "redis";
 import { promisify } from "util";
 
 const HOST = process.env.REDIS_HOST || "localhost";
-const PORT = process.env.REDIS_PORT || 6379;
+const PORT = process.env.REDIS_PORT || 5000;
 
 class RedisClient {
 	constructor() {
 		this.client = redis.createClient({ host: HOST, port: PORT });
 
-		// Display any error in the console
 		this.client.on("error", (err) => {
 			console.error(`Redis client error: ${err}`);
 		});
@@ -36,4 +35,4 @@ class RedisClient {
 
 // Create and export an instance of RedisClient
 const redisClient = new RedisClient();
-export default redisClient;
+module.exports = redisClient;
