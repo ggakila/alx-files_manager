@@ -1,12 +1,9 @@
-import redis from "redis";
+import { createClient } from "redis";
 import { promisify } from "util";
-
-const HOST = process.env.REDIS_HOST || "localhost";
-const PORT = process.env.REDIS_PORT || 5000;
 
 class RedisClient {
 	constructor() {
-		this.client = redis.createClient({ host: HOST, port: PORT });
+		this.client = createClient();
 
 		this.client.on("error", (err) => {
 			console.error(`Redis client error: ${err}`);
